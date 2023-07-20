@@ -8,7 +8,7 @@ class Employee:
         print(f"Employee Salary: ${self.emp_salary:.2f}")
 
 
-employee1 = Employee(101, "John Doe", 50000.50)
+employee1 = Employee(101, 50000.50)
 employee1.employee_info()
 
 
