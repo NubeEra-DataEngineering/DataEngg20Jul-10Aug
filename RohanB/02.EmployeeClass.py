@@ -1,11 +1,13 @@
 class Employee:
-    def __init__(self, emp_id, emp_name, emp_salary):
+    def __init__(self, emp_id,name):
         self.emp_id = emp_id
-        self.emp_salary = emp_salary
+        self.name=name
 
-    def employee_info(self):
-        print(f"Employee ID: {self.emp_id}")
-        print(f"Employee Salary: ${self.emp_salary:.2f}")
+    def salary(self,salary):
+        self.salary=salary
 
-employee1 = Employee(101, 50000.50)
-employee1.employee_info()
+    def __del__(self):
+        print(f"Employee {self.name}  is being removed.")
+
+employee1 = Employee(101, "rohan")
+print(employee1.name)
