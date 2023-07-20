@@ -1,0 +1,5 @@
+import pandas 
+dfEmployees = pandas.read_csv("data.csv")
+dfEmployees = dfEmployees[dfEmployees["Age"] > 100]
+dfEmployees = dfEmployees["name", "age", "city"]
+dfEmployees.to_csv[FilterData.csv]
