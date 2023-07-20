@@ -1,0 +1,6 @@
+S = ["aa","bb","cc"]
+
+for i, char in S:
+    print(i+1, "-", s[i])
+
+    
