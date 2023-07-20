@@ -5,4 +5,4 @@ dfemployee=pd.read_csv("data.csv")
 # Display dataframe
 print(dfemployee)
 # Writing into csv file
-df.employee.to_csv("proceed_data.csv")
+dfemployee.to_csv("proceed_data.csv")
