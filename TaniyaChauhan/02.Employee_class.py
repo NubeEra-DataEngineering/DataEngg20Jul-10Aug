@@ -4,4 +4,3 @@ class Employee:
   def add_salary(self, salary):
     self.salary=salary
 emp_1=Employee("Taniya")
-print("Welcome to python")
