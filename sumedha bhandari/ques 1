@@ -1,0 +1,8 @@
+class Employee:
+    def_init_(self, id, name, salary):
+        self.id = id
+        self.salary = salary 
+    def employee_info(self):
+        print(f"Employee ID: {self.id}")
+        print(f"Employee Salary: {self.salary: f}")
+
