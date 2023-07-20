@@ -4,3 +4,5 @@ import pandas as pd
 dfemployee=pd.read_csv("data.csv")
 # Display dataframe
 print(dfemployee)
+# Writing into csv file
+df.employee.to_csv("proceed_data.csv")

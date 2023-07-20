@@ -1,0 +1,7 @@
+pip install virtualenv
+
+virtualenv .envMH
+
+source .envMH/Scripts/activate
+
+pip install -r requirements.txt
