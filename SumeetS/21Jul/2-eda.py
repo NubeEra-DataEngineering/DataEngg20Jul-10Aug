@@ -54,7 +54,7 @@ def analyze(data):
 
 
 # Create Bucket
-# create_bucket('sumeets-eda-21jul', 'ap-south-1')
+create_bucket('sumeets-eda-21jul', 'ap-south-1')
 
 # Upload Data
 upload_file('SumeetS/data.csv', 'sumeets-eda-21jul', 'Data/eda.csv')
