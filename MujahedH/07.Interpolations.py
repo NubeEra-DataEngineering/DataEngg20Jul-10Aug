@@ -11,30 +11,28 @@ data = {
 }
 
 #03.DataSet --> DataFrame
-df=pd.DataFrame(data)
-df['Timestamp']=pd.to_datetime(df['Timestamp'])
+df = pd.DataFrame(data)
+df['Timestamp'] = pd.to_datetime(df['Timestamp'])
 
-# Sroting the Frame By Timestamp inplace
-df.sort_values('Timestamp',inplace=True)
+# Sorting the DataFrame by timestamp
+df.sort_values('Timestamp', inplace=True)
 
-# Create an Interp. Func. using Linear Inter.
-interpolation_func =interp1d(df["Timestamp"],df["Value"], kind='linear', fill_value="extrapolate")
+# Creating an interpolation function using linear interpolation
+interpolation_func = interp1d(df['Timestamp'], df['Value'], kind='linear', fill_value='extrapolate')
 
+# Generating a new timestamp range for interpolation
+start_date = df['Timestamp'].min()
+end_date = df['Timestamp'].max()
+interpolated_timestamps = pd.date_range(start=start_date, end=end_date, freq='D')
 
-# Generating a new range for interpolation
-start_date = df["Timestamp"].min()
-end_date = df["Timestamp"].max()
-interpolated_timestamps=pd.date_range(start=start_date,end=end_date,freq='D')
+# Applying interpolation function to fill missing values
+interpolated_values = interpolation_func(interpolated_timestamps)
 
-#Applying Inter. Func. to fill missing values
-interpolated_values=interpolation_func(interpolated_timestamps)
+# Creating a new DataFrame with interpolated data
+interpolated_df = pd.DataFrame({'Timestamp': interpolated_timestamps, 'Value': interpolated_values})
 
-
-
-interpolated_df =pd.DataFrame({'Timestamp': interpolated_timestamps,
-                  'Value':interpolated_values})
-
-merged_df=pd.merge(df,interpolated_df,on='Timestamp', how='right')
+# Merging the original DataFrame and interpolated DataFrame
+merged_df = pd.merge(df, interpolated_df, on='Timestamp', how='right')
 
 
 
