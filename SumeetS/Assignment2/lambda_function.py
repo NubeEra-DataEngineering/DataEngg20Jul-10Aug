@@ -63,3 +63,10 @@ def lambda_handler(event, context):
         MessageStructure = 'json'
     )
     return 'File loaded into RDS:' + str(download_path)
+
+
+    # Follow this guide
+    # https://docs.aws.amazon.com/lambda/latest/dg/python-package.html
+
+    # Update function from CLI
+    # aws lambda update-function-code --function-name lmb-sumeets-a2-zip --zip-file fileb://sumeets_deployment_package.zip
