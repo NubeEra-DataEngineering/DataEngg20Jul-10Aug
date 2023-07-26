@@ -1,0 +1,28 @@
+import json
+import boto3
+
+def lambda_handler(event, context):
+    bucket_name = event['Records'][0]['s3']['bucket']['name']
+    object_key = event['Records'][0]['s3']['object']['key']
+
+
+    # Creating SNS client
+    sns_client = boto3.client('sns')
+
+ 
+
+    # Message
+    message = f"{object_key} file uploaded to S3 bucket: {bucket_name}"
+
+ 
+
+    # Publish the message to the SNS topic
+    sns_topic_arn = 'arn:aws:sns:ap-south-1:475184346033:sns-rohan-assignment1'
+    sns_client.publish(
+        TopicArn=sns_topic_arn,
+        Message=message
+    )
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Notification sent successfully!')
+    }
