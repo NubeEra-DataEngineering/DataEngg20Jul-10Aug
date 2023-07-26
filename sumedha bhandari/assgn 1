@@ -1,0 +1,22 @@
+import json
+import boto3 
+
+sns_client = boto3.client('sns')
+
+def lambda_handler(event, context):
+    for record in event['Records']:
+        event_name = record['eventName']
+        bucket_name = record['s3']['bucket']['name']
+        object_key = record['s3']['object']['key']
+        
+        subject = f"s3 Event: {event_name} = {object_key}"
+        message = f"s3 event {event_name} occured for the object: {object_key} in bucket: {bucket_name}"
+
+        sns_topic_arn = "arn:aws:sns:ap-south-1:475184346033:sns-sumedha-assgn1"
+        sns_client.publish(TopicArn=sns_topic_arn, Subject=subject, Message=message)
+
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Sns notification sent')
+  }

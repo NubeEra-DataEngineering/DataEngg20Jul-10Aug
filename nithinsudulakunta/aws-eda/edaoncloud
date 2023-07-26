@@ -1,0 +1,72 @@
+import pandas as pd
+#import seaborn as sns
+import matplotlib.pyplot as plt
+import boto3
+from io import BytesIO
+import io
+
+# Load the data from "tested.csv" into a DataFrame
+df = pd.read_csv("C:/Users/nithin.sudulakunta/Downloads/tested.csv")
+
+
+
+s3 = boto3.client(
+    's3'
+    
+) 
+
+
+
+
+bucket_name = 'bkt-nithinsai-aws-eda'
+
+s3.create_bucket(Bucket=bucket_name, CreateBucketConfiguration= {'LocationConstraint':'ap-south-1'})
+
+
+data_file_s3_key = 'data/tested.csv'
+
+
+s3.upload_file("C:/Users/nithin.sudulakunta/Downloads/tested.csv", bucket_name, data_file_s3_key)
+
+
+s3_data = s3.get_object(Bucket=bucket_name, Key=data_file_s3_key)
+
+df = pd.read_csv(s3_data['Body'])
+
+
+
+
+
+
+file_name = 'data/tested.csv'
+response = s3.get_object(Bucket=bucket_name, Key=file_name)
+data = pd.read_csv(io.BytesIO(response['Body'].read()))
+
+
+
+survived_counts = data['Survived'].value_counts()
+male_survived = data[data['Sex'] == 'male']['Survived'].value_counts()
+female_survived = data[data['Sex'] == 'female']['Survived'].value_counts()
+
+plt.figure(figsize=(8, 6))
+plt.bar(survived_counts.index, survived_counts.values, width=0.4, label='Total')
+plt.bar(male_survived.index + 0.2, male_survived.values, width=0.2, label='Male', align='center')
+plt.bar(female_survived.index - 0.2, female_survived.values, width=0.2, label='Female', align='center')
+plt.xticks([0, 1], ['Not Survived', 'Survived'])
+plt.title('Survival Count by Sex')
+plt.xlabel('Survived')
+plt.ylabel('Count')
+plt.legend(title='Sex')
+plt.savefig('survival_count_by_sex.jpg')  
+
+
+
+
+new_folder_key = f"{'output'}/survival_count_by_sex.jpg"
+s3.put_object(Bucket=bucket_name, Key=new_folder_key, Body=open('survival_count_by_sex.jpg', 'rb'))
+
+
+plt.show()
+
+
+
