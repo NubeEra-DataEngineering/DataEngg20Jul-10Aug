@@ -137,7 +137,7 @@ JOIN OrderDetails od ON b.ISBN = od.ISBN
 JOIN Orders o ON od.OrderID = o.OrderID
 JOIN Customer c ON o.CustomerID = c.CustomerID
 JOIN Author a ON c.CustomerID = a.AuthorID
-WHERE a.FirstName = '';
+WHERE a.FirstName = 'John';
 
 
 --all orders with the customer details (name, email) and the books ordered (title, quantity)
